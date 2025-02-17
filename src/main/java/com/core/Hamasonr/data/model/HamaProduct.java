@@ -71,10 +71,10 @@ public class HamaProduct implements Serializable {
 																									// nombre a esta
 																									// columna name. en
 																									// la tabla
-	@Size(min = 20, max = 800, message = "{model.data.validation.HamaProduct.description}")
+	@Size(min = 5, max = 800, message = "{model.data.validation.HamaProduct.description}")
 	private String description;
 
-	@NotNull
+
 	@Column(name = "IMAGES_URL", nullable = false, length = 2083)
 //	@Pattern(regexp = "^(http|https)://.*$", message = "Invalid URL format")
 	@Size(min = 5, message = "{model.data.validation.HamaProduct.images}")

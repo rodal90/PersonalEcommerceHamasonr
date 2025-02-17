@@ -71,7 +71,7 @@
 					<div>
 						<!-- Cambiado a /product/add -->
 						<a role="button" class="btn bg-naranjafondo mb-2"
-							th:href="@{/product/add}">Agregar Producto</a>
+							th:href="@{/product/addGet}">Agregar Producto</a>
 					</div>
 					<div class="table-responsive bg-light">
 						<table class="table table-hover text-start text-dark">
@@ -105,7 +105,7 @@
 									<td>
 										<!-- Cambiado a /product/edit/{id} --> <a role="button"
 										class="btn bg-azulcadete" id="btceleste"
-										th:href="@{'/product/edit/' + ${product.id}}">Actualizar</a>
+										th:href="@{'/product/editGet/' + ${product.id}}">Actualizar</a>
 									</td>
 									<td sec:authorize="hasAuthority('MANAGER')"><a
 										role="button" class="btn bg-naranjafondo" id="btnaranja"

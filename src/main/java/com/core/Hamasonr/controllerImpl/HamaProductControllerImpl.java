@@ -62,7 +62,7 @@ public class HamaProductControllerImpl extends HamaMasterControllerImpl implemen
     }
 
     // Mostrar formulario de nuevo producto
-    @GetMapping("/product/add")
+    @GetMapping("/product/addGet")
     public String productAddGet(Model model) {
         log.info("Cargando formulario para nuevo producto");
         model.addAttribute("product", hamaProductService.newHamaProduct());
@@ -84,27 +84,48 @@ public class HamaProductControllerImpl extends HamaMasterControllerImpl implemen
         return "product/productAdd";
     }
 
-    // Guardar nuevo producto
-    @PostMapping("/product/add")
-    public String productAddPost(@Valid HamaProduct product, BindingResult bindingResult, Model model) {
+    @PostMapping("/product/addPost")
+    public String productAddPost(@Valid @ModelAttribute("product") HamaProduct product, 
+                                 BindingResult bindingResult, 
+                                 @RequestParam("imageFile") MultipartFile imageFile, 
+                                 Model model) {
+      
         if (bindingResult.hasErrors()) {
             log.error("Errores en el formulario: " + bindingResult.getAllErrors());
+            // Agregar listas al modelo para volver a mostrar el formulario
+            model.addAttribute("families", hamaProductFamilyService.getAllFamilies());
+            model.addAttribute("providers", hamaProviderService.findAll());
+            model.addAttribute("rates", hamaProductRateService.findall());
+            return "product/productAdd"; // Regresar a la vista con errores
+        }
+
+        try {
+            String imageUrl = hamaProductService.storeImage(imageFile); // Almacenar la imagen
+            product.setImageUrl(imageUrl); // Establecer la URL de la imagen
+        } catch (Exception e) {
+            log.error("Error al subir la imagen", e);
+            bindingResult.rejectValue("imageUrl", "error.imageUrl", "Error al subir la imagen.");
+            model.addAttribute("families", hamaProductFamilyService.getAllFamilies());
+            model.addAttribute("providers", hamaProviderService.findAll());
+            model.addAttribute("rates", hamaProductRateService.findall());
             return "product/productAdd";
         }
+
         hamaProductService.save(product);
         log.info("Producto agregado: " + product);
         return "redirect:/product/list";
     }
 
+
     // Mostrar formulario de edición
-    @GetMapping("/product/edit/{id}")
+    @GetMapping("/product/editGet/{id}")
     public String productEditGet(@PathVariable("id") Long id, Model model) {
         log.info("Cargando producto para edición: " + id);
         model.addAttribute("product", hamaProductService.getProductById(id).orElse(null));
         return "product/productUpdate";
     }
 
-    @PostMapping("/product/edit")
+    @PostMapping("/product/editPost")
     public String productEditPost(@Valid @ModelAttribute("product") HamaProduct product, 
                                    BindingResult bindingResult,
                                    @RequestParam("imageFile") MultipartFile imageFile,

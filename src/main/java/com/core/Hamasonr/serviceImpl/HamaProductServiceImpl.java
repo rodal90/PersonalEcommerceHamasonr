@@ -1,6 +1,7 @@
 package com.core.Hamasonr.serviceImpl;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +27,10 @@ public class HamaProductServiceImpl implements IHamaProductService {
 	@Autowired
 
 	private IHamaProductRepository hamaProductRepository;
+	
+	 // Define la ruta donde deseas guardar las imágenes
+    @Value("${image.upload.dir}")
+    private String uploadDir;
 
 	@Override
 	public List<HamaProduct> findAll() {
@@ -80,28 +86,27 @@ public class HamaProductServiceImpl implements IHamaProductService {
 	}
 
 	@Override
-	public String storeImage(MultipartFile file) {
-	    try {
-	        // Define el directorio donde se almacenarán las imágenes (por ejemplo, "uploads/")
-	        String uploadsDir = "uploads/";
-	        File uploadDirFile = new File(uploadsDir);
-	        if (!uploadDirFile.exists()) {
-	            uploadDirFile.mkdirs();
-	        }
-	        
-	        // Genera un nombre único para el archivo (puedes ajustar esta lógica según lo necesites)
-	        String originalFilename = file.getOriginalFilename();
-	        String fileName = System.currentTimeMillis() + "_" + originalFilename;
-	        Path filePath = Paths.get(uploadsDir, fileName);
-	        
-	        // Copia el archivo al directorio de destino
-	        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-	        
-	        // Retorna la URL o ruta del archivo; por ejemplo, si configuras un ResourceHandler para /uploads/**
-	        return "/uploads/" + fileName;
-	    } catch (Exception e) {
-	        throw new RuntimeException("Error saving file: " + e.getMessage());
-	    }
-	}
+    public String storeImage(MultipartFile imageFile) {
+        // Verifica que el archivo no esté vacío
+        if (imageFile.isEmpty()) {
+            throw new RuntimeException("No se puede almacenar un archivo vacío.");
+        }
 
+        try {
+            // Obtiene el nombre original del archivo
+            String fileName = imageFile.getOriginalFilename();
+            // Define la ruta completa donde se guardará la imagen
+            Path path = Paths.get(uploadDir + fileName);
+            // Crea el directorio si no existe
+            Files.createDirectories(path.getParent());
+            // Copia el archivo a la ubicación deseada
+            Files.copy(imageFile.getInputStream(), path);
+            // Devuelve la ruta o URL donde se ha almacenado la imagen
+            return path.toString(); // O puedes devolver una URL relativa
+        } catch (IOException e) {
+            throw new RuntimeException("Error al almacenar la imagen: " + e.getMessage());
+        }
+    }
 }
+
+

@@ -25,16 +25,16 @@ public interface IHamaProductController {
 	    @GetMapping("/product/view/{id}")
 	    String productViewGet(@PathVariable("id") Long id, Model model);
 
-	    @GetMapping("/product/add")
+	    @GetMapping("/product/addGet")
 	    String productAddGet(Model model);
 
-	    @PostMapping("/product/add")
+	    @PostMapping("/product/addPost")
 	    String productAddPost(@Valid HamaProduct product, BindingResult bindingResult, Model model);
 
-	    @GetMapping("/product/edit/{id}")
+	    @GetMapping("/product/editGet/{id}")
 	    String productEditGet(@PathVariable("id") Long id, Model model);
 
-	    @PostMapping("/product/edit")
+	    @PostMapping("/product/editPost")
 	    String productEditPost(@Valid HamaProduct product, BindingResult bindingResult);
 
 	    @GetMapping("/product/delete/{id}")

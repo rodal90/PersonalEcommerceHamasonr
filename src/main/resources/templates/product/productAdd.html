@@ -40,7 +40,7 @@
                 <div class="row pt-4">
                     <div class="col-12">
                         <!-- Se añade enctype para permitir la carga de archivos -->
-                        <form th:object="${product}" method="POST" th:action="@{/product/add}" enctype="multipart/form-data">
+                        <form th:object="${product}" method="POST" th:action="@{/product/addPost}" enctype="multipart/form-data">
                             <!-- Muestra los errores de validación -->
                             <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
                                 <p th:text="#{html.generic.errors.message.title}"></p>
@@ -72,7 +72,7 @@
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <label for="imageFile">Imagen:</label>
-                                    <input type="file" id="imageFile" name="imageFile" class="form-control">
+                                    <input type="file" id="imageFile" name="imageFile" required class="form-control">
                                     <!-- Nota: Actualizar el controlador y el service para manejar la carga del archivo -->
                                 </div>
                             </div>
