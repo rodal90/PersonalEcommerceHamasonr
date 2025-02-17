@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <!-- Incluir head -->
+    <div th:replace="~{standarLayouts/head :: head1}">
+        AQUI DEBERIAMOS USAR EL HEAD
+    </div>
+    
+    <style>
+        .bg-fondo { background-color: #003366; /* Azul oscuro */ }
+        .bg-naranjaboton { background-color: #FF6347; }
+        .bg-naranjafondo { background-color: #FF8C00; }
+        .bg-naranjabrillo { background-color: #FF7F50; }
+        .bg-clesteclaro { background-color: #87CEFA; }
+        .bg-aceroazulado { background-color: #4682B4; }
+        .bg-azulcadete { background-color: #5F9EA0; }
+        .bg-azulpetroleo { background-color: #1F3A3D; }
+        .bg-grisclarito { background-color: #F2F2F2; }
+        #btazul { color: white; }
+        #btceleste { color: white; }
+        #btnaranja { color: white; }
+    </style>
+
+    <body>
+        <!-- Incluir navbar -->
+        <nav th:replace="~{standarLayouts/navbar :: navbar2('products')}">
+            AQUI DEBERIA SALIR EL NAVBAR
+        </nav>
+
+        <section class="d-flex justify-content-center align-items-center vh-100 pb-5 pt-5 bg-aceroazulado text-light">
+            <div class="container">
+                <div class="row text-center justify-content-center">
+                    <div class="col-12 col-md-8 col-lg-7">
+                        <h3 class="fw-bold display-4 text-white">Agregar Producto</h3>
+                    </div>
+                </div>
+                <div class="row pt-4">
+                    <div class="col-12">
+                        <!-- Se añade enctype para permitir la carga de archivos -->
+                        <form th:object="${product}" method="POST" th:action="@{/product/add}" enctype="multipart/form-data">
+                            <!-- Muestra los errores de validación -->
+                            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                                <p th:text="#{html.generic.errors.message.title}"></p>
+                                <ul>
+                                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Campo oculto para el ID -->
+                            <input th:field="*{id}" type="hidden" />
+
+                            <!-- Nombre del Producto -->
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="name">Nombre del Producto:</label>
+                                    <input type="text" id="name" class="form-control" placeholder="Nombre del Producto" th:field="*{name}" required minlength="4" maxlength="150">
+                                </div>
+                            </div>
+                            
+                            <!-- Descripción -->
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="description">Descripción:</label>
+                                    <textarea id="description" class="form-control" placeholder="Descripción del Producto" th:field="*{description}" rows="4" required minlength="20" maxlength="800"></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Campo para cargar la imagen (sin vista previa) -->
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label for="imageFile">Imagen:</label>
+                                    <input type="file" id="imageFile" name="imageFile" class="form-control">
+                                    <!-- Nota: Actualizar el controlador y el service para manejar la carga del archivo -->
+                                </div>
+                            </div>
+                            
+                            <!-- Precio, Stock y Descuento -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="price">Precio:</label>
+                                    <input type="number" id="price" class="form-control" placeholder="Precio" th:field="*{price}" step="0.01" min="0" max="999.99" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="stock">Stock:</label>
+                                    <input type="number" id="stock" class="form-control" placeholder="Stock" th:field="*{stock}" min="0" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="discount">Descuento (%):</label>
+                                    <input type="number" id="discount" class="form-control" placeholder="Descuento" th:field="*{discount}" step="0.01" min="5" max="100" required>
+                                </div>
+                            </div>
+                            
+                            <!-- Selects para Proveedor, Calificación y Familia -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="provider">Proveedor:</label>
+                                    <select id="provider" class="form-control" th:field="*{provider.id}" required>
+                                        <option value="" disabled selected>Selecciona un proveedor</option>
+                                        <option th:each="prov : ${providers}" th:value="${prov.id}" th:text="${prov.providerName}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="rate">Calificación:</label>
+                                    <select id="rate" class="form-control" th:field="*{rate.id}" required>
+                                        <option value="" disabled selected>Selecciona una calificación</option>
+                                        <option th:each="rate : ${rates}" th:value="${rate.id}" th:text="${rate.rateName}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="productFamily">Familia del Producto:</label>
+                                    <select id="productFamily" class="form-control" th:field="*{productFamily.id}" required>
+                                        <option value="" disabled selected>Selecciona una familia</option>
+                                        <option th:each="fam : ${families}" th:value="${fam.id}" th:text="${fam.familyName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Botones: Guardar, Deshacer y Volver -->
+                            <div class="row mt-4">
+                                <div class="col text-center">
+                                    <button type="submit" class="btn bg-clesteclaro btn-lg">Guardar</button>
+                                </div>
+                                <div class="col text-center">
+                                    <button type="reset" class="btn bg-azulpetroleo text-white btn-lg">Deshacer</button>
+                                </div>
+                                <div class="col text-center">
+                                    <a th:href="@{/product/list}" class="btn bg-naranjabrillo text-white btn-lg btn-rised">Volver</a>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Incluir script -->
+        <div th:replace="~{standarLayouts/script :: script1}">
+            AQUI DEBERIA CARGAR EL SCRIPT
+        </div>
+    </body>
+
+    <!-- Incluir footer -->
+    <div th:replace="~{standarLayouts/sectionFooter :: sectionFooter1}">
+        AQUI DEBERIAMOS USAR EL sectionFooter
+    </div>
+</html>

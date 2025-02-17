@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="~{standarLayouts/head :: head1}">AQUI DEBERÍAMOS
+	USAR EL HEAD</div>
+
+<style>
+.bg-fondo {
+	background-color: #003366; /* Azul oscuro */
+}
+
+.bg-naranjaboton {
+	background-color: #FF6347;
+}
+
+.bg-naranjafondo {
+	background-color: #FF8C00;
+}
+
+.bg-naranjabrillo {
+	background-color: #FF7F50;
+}
+
+.bg-clesteclaro {
+	background-color: #87CEFA;
+}
+
+.bg-aceroazulado {
+	background-color: #4682B4;
+}
+
+.bg-azulcadete {
+	background-color: #5F9EA0;
+}
+
+.bg-azulpetroleo {
+	background-color: #1F3A3D;
+}
+
+.bg-grisclarito {
+	background-color: #F2F2F2;
+}
+
+#btazul {
+	color: white;
+}
+
+#btceleste {
+	color: white;
+}
+
+#btnaranja {
+	color: white;
+}
+</style>
+
+<body>
+
+	<nav th:replace="~{standarLayouts/navbar :: navbar2('products')}">
+		AQUI DEBERÍA SALIR EL NAVBAR</nav>
+
+	<div class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+		<section
+			class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+			<div class="container">
+				<!-- Título centrado -->
+				<div class="row justify-content-center mb-4">
+					<div class="col-12 col-md-8 text-center">
+						<h3 class="fw-bold display-4 text-white">Producto</h3>
+					</div>
+				</div>
+
+				<!-- Formulario del producto -->
+				<div class="row">
+					<div class="col-12 col-md-10 col-lg-8 mx-auto">
+						<div th:object="${product}">
+
+							<!-- Fila 1: ID y Nombre -->
+							<div class="row g-3">
+								<!-- Campo ID -->
+								<div class="col-3">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Id</span>
+										<input readonly th:value="${product.id}" type="text"
+											class="form-control">
+									</div>
+								</div>
+								<!-- Campo Nombre -->
+								<div class="col-9">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Nombre</span>
+										<input readonly th:value="${product.name}" type="text"
+											class="form-control" placeholder="Nombre">
+									</div>
+								</div>
+							</div>
+
+							<!-- Fila 2: Descripción -->
+							<div class="row g-3">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Descripción</span>
+										<input readonly th:value="${product.description}" type="text"
+											class="form-control" placeholder="Descripción">
+									</div>
+								</div>
+							</div>
+
+							<!-- Fila 3: Precio y Stock -->
+							<div class="row g-3">
+								<!-- Campo Precio -->
+								<div class="col-md-6">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Precio</span>
+										<input readonly th:value="${product.price}" type="text"
+											class="form-control" placeholder="Precio">
+									</div>
+								</div>
+								<!-- Campo Stock -->
+								<div class="col-md-6">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Stock</span>
+										<input readonly th:value="${product.stock}" type="text"
+											class="form-control" placeholder="Stock">
+									</div>
+								</div>
+							</div>
+
+							<!-- Bloque para Discount -->
+							<div class="row g-3 mt-4">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Descuento</span>
+										<input readonly th:value="${product.discount} + '%'" type="text"
+											class="form-control" placeholder="Descuento">
+									</div>
+								</div>
+							</div>
+
+							<!-- Bloque para Product Family -->
+							<div class="row g-3 mt-4">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Familia</span>
+										<input readonly
+											th:value="${product.productFamily != null ? product.productFamily.familyName : 'Sin Familia'}"
+											type="text" class="form-control" placeholder="Familia">
+									</div>
+								</div>
+							</div>
+
+							<!-- Bloque para Rate -->
+							<div class="row g-3 mt-4">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Tasa</span>
+										<input readonly
+											th:value="${product.rate != null ? product.rate.rateName : 'Sin Tasa'}"
+											type="text" class="form-control" placeholder="Tasa">
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Fila 4: Proveedor -->
+							<div class="row g-3 mt-4">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Proveedor</span>
+										<input readonly
+											th:value="${product.provider != null ? product.provider.providerName : 'Sin Proveedor'}"
+											type="text" class="form-control" placeholder="Proveedor">
+									</div>
+								</div>
+							</div>
+
+							<!-- Botón Back -->
+							<div class="row mt-4">
+								<div class="col text-center">
+									<a type="button" th:href="@{/product/list}"
+										class="btn bg-naranjabrillo btn-round mb-3 btn-rised text-light">
+										Volver </a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div th:replace="~{standarLayouts/script :: script1}">AQUI
+		DEBERÍA CARGAR EL script</div>
+
+	<div th:replace="~{standarLayouts/sectionFooter :: sectionFooter1}">
+		AQUI DEBERÍA SALIR EL footer</div>
+
+</body>
+</html>

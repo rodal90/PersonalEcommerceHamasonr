@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	>
+
+
+  <div th:replace="~{standarLayouts/head :: head1}">
+  	AQUI DEBERIA SALIR EL head
+  </div>
+  
+  <style>
+.bg-fondo {
+	background-color: #003366; /* Azul oscuro */
+}
+
+.bg-naranjaboton {
+	background-color: #FF6347;
+}
+
+.bg-naranjafondo {
+	background-color: #FF8C00;
+}
+
+.bg-naranjabrillo {
+	background-color: #FF7F50;
+}
+
+.bg-clesteclaro {
+	background-color: #87CEFA;
+}
+
+.bg-aceroazulado {
+	background-color: #4682B4;
+}
+
+.bg-azulcadete {
+	background-color: #5F9EA0;
+}
+
+.bg-azulpetroleo {
+	background-color: #1F3A3D;
+}
+
+.bg-grisclarito {
+	background-color: #F2F2F2;
+}
+
+#btazul {
+	color: white;
+}
+
+#btceleste {
+	color: white;
+}
+
+#btnaranja {
+	color: white;
+}
+</style>
+
+<body>
+
+  <nav th:replace="~{standarLayouts/navbar :: navbar2('providers')}">AQUI
+		DEBERIA DE Salir el navbar</nav>
+
+  <div class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+  
+    <section class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-12">
+            <h3 class="fw-bold display-4 text-white text-center">Borrar Cliente</h3>
+          </div>
+        </div>
+        
+        <div class="row pt-4">
+          <div class="col-12">
+            <div th:object="${customer}">
+              
+              <div class="row">
+                
+                <div class="col-md-4 input-group mb-2">
+                  <span class="input-group-text bg-secondary text-light">Nombre Completo:</span>
+                  <input readonly th:value="${customer.fullname}" type="text" class="form-control"
+                         th:placeholder="#{html.providerX.input.placeholder.fullname}" 
+                         th:title="#{html.providerX.input.title.fullname}">
+                </div>
+
+                <div class="col-md-4 input-group mb-2">
+                  <span class="input-group-text bg-secondary text-light">Número de Teléfono:</span>
+                  <input readonly th:value="${customer.phoneNumber}" type="text" class="form-control"
+                         th:placeholder="#{html.providerX.input.placeholder.phoneNumber}" 
+                         th:title="#{html.providerX.input.title.phoneNumber}">
+                </div>
+
+                <div class="col-md-4 input-group mb-2">
+                  <span class="input-group-text bg-secondary text-light">Correo Electrónico:</span>
+                  <input readonly th:value="${customer.email}" type="text" class="form-control"
+                         th:placeholder="#{html.providerX.input.placeholder.email}" 
+                         th:title="#{html.providerX.input.title.email}">
+                </div>
+
+              </div>
+
+              <div class="row mt-4">
+                <div class="col-md-6 input-group mb-2">
+                  <span class="input-group-text bg-secondary text-light">Número de Tarjeta:</span>
+                  <input readonly th:value="${customer.cardnumber}" type="text" class="form-control"
+                         th:placeholder="#{html.providerX.input.placeholder.cardnumber}" 
+                         th:title="#{html.providerX.input.title.cardnumber}">
+                </div>
+
+                <div class="col-md-6 input-group mb-2">
+                  <span class="input-group-text bg-secondary text-light">Fecha de expiración:</span>
+                  <input readonly th:value="${customer.expirationdate}" type="text" class="form-control"
+                         th:placeholder="#{html.providerX.input.placeholder.expirationdate}" 
+                         th:title="#{html.providerX.input.title.expirationdate}">
+                </div>
+              </div>
+
+              <div class="row mt-4 text-center">
+                <div class="col">
+                  <a type="button" th:href="@{/customerListGet}"
+                     class="btn bg-fondo text-white btn-lg"
+                     style="width: 150px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                    Volver
+                  </a>
+                </div>
+
+                <div class="col">
+                  <a type="button" th:href="@{/customer/deleteConfirmed/} + ${customer.getId()}"
+                     class="btn bg-danger text-white btn-lg"
+                     style="width: 150px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                    Borrar
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <div th:replace="~{standarLayouts/sectionFooter :: sectionFooter1}">
+    AQUI DEBERIA SALIR EL footer
+  </div>
+  
+  
+	<div th:replace="~{standarLayouts/script :: script1}">AQUI
+		DEBERIA DE ALISR EL script</div>
+
+</body>
+
+  
+
+</html>

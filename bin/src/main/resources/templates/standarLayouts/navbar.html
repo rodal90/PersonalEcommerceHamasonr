@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html
+
+ xmlns="http://www.w3,org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/layout"
+ xmlns:sec="http://www.thymeLeaf.org/extras/spring-security"
+>
+
+<!--th:fragment="navbar1 //es la forma de convertir esta parte de código en fragmento reutilizable con thymeleaf-->
+
+    <nav th:fragment="navbar1" class="navbar navbar-expand-lg navbar-dark border border-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img th:src="@{/img/Eventixpro_recortado_5.jpg}" alt="UI Kit"
+            style="width: 75px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo03"
+          aria-controls="navbarTogglerDemo03" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav ms-auto me-sm-2 mt-2 mt-lg-0">
+            <li class="nav-item active me-3">
+              <a class="nav-link"  th:href="@{/homeGet}">Home <span
+                  class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#">Our Work</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#">Contacts</a>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" th:text="#{html.navbar.menu.data}">Data
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" th:href="@{/customerListGet}" th:text="#{html.navbar.menu.customer}">Customer</a>
+                <a class="dropdown-item" th:href="@{/providerListGet}" th:text="#{html.navbar.menu.provider}">Provider</a>
+                <a class="dropdown-item" th:href="@{/contactListGet}" th:text="#{html.navbar.menu.contacts}">Contacts</a>
+                <a class="dropdown-item" href="#">Products and Services</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" th:href="@{/dumpDBGet}" th:text="#{html.navbar.menu.dump}">Dump DataBase</a>
+              </div>
+            </li>
+            
+                 <!--
+               BUSCAR BANDERAS EN GITHUB EN FORMATO SVG (tamaño proporcional automático):
+               https://github.com/joielechong/iso-country-flags-svg-collection/tree/master/svg/country-4x3
+            -->
+                 
+            
+            
+            
+              <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <img class="rounded-circle u-box-shadow-sm me-2" width="25"
+                  height="25" th:src="@{/img/lion.ico}"
+                  alt="Htmlstream" th:text="${username} + ' '+' '"><i class="fa fa-angle-down   "></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">Account Settings</a>
+                <a class="dropdown-item" href="#">Newsletter</a>
+                <div class="dropdown-divider"></div>
+                 <div class="dropdown-item" sec:authentication="principal.authorities">Roles</div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" th:href="@{/logoutGet}">Sign Out</a>
+              </div>
+            </li>
+             <li class="nav-item dropdown bg-dark text-success">
+                <a class="nav-link p-1 m-0 dropdown-togle" id="comboLanguage" href="#" role="button"
+                   data-bs-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
+                   
+                    <span th:text="#{lang.change}"></span>
+                     <img th:src="@{/img/world2.svg}" height="40">
+                        <i class="fa fa-angle-down"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg-end bg-light btn btn-outline-success p-0 m-0"
+                       style="text-decoration:none; margin-top: 0px; margin-bottom: 0px;"
+                       aria-labelledby="comboLanguage">
+                       <!--classappendbuscar para que sirve, con el elvis se hace dos casos para poder agregarle colores y estetica diferente  -->
+                       <!--la condicion es el locale que thymeleaf reconoce y al reconocer el idioma cambia el color en base a si el idioma esta seleccionado o no  -->
+                       <!--el href: donde le queremos enviar cuando se produzca un cambio de idioma, y luego lo estético -->
+                    <a th:each="languageTag : ${languageTagStringList}" class="dropdown-item" 
+                       th:classappend="${#locale.toString()} == ${languageTag} ? 'bg-success text-white' : 'bg-dark text-success'"
+                       th:href="${requestURI} + '?lang=' + ${languageTag}" style="text-decoration:none; margin-top: 0px; margin-bottom: 0px;">
+                       <img th:src="@{'/img/' + ${languageTag} + '.svg'}" style="width:30px; margin-top: 0px; margin-bottom: 0px;">
+                       <span th:text="#{'lang.' + ${languageTag}}" style="margin-top: 0px; margin-bottom: 0px;"></span>
+                   </a>
+                </div>
+            </li>      
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html
+
+ xmlns="http://www.w3,org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/layout"
+ xmlns:sec="http://www.thymeLeaf.org/extras/spring-security"
+>
+
+   
+
+  <div th:replace="~{standarLayouts/head :: head1}">
+   AQUI DEBERIAMOS USAR EL HEAD
+  </div>
+  
+  <style>
+  
+   .bg-fondo {
+            background-color:#003366; /* Azul oscuro */
+        }
+        
+   .bg-naranjaboton{
+   
+      background-color: #FF6347;
+        
+   }
+   
+    .bg-naranjafondo{
+   
+      background-color: #FF8C00;
+        
+   }
+   
+    .bg-naranjabrillo{
+   
+      background-color: #FF7F50;
+        
+   }
+   
+    .bg-clesteclaro{
+   
+      background-color:#87CEFA;
+        
+   }
+   
+    .bg-aceroazulado{
+   
+      background-color: #4682B4;
+        
+   }
+   
+   
+    .bg-azulcadete{
+   
+      background-color: #5F9EA0;
+        
+   }
+   
+    .bg-azulpetroleo{
+   
+      background-color:#1F3A3D;
+        
+   }
+
+  </style>
+
+  <body class= "bg-oscuro">
+
+    <section style="min-height: 100vh" class="pb-5 pt-5 bg-fondo text-light">
+      <div class="block pt-5 pb-5 text-center">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-10">
+              
+              <img th:src="@{/img/Hama.jpg}" alt="Descripción de la imagen">
+              <h4 class="mt-5 mb-5 text-white">
+                Bienvenido a <strong class="fs-2 text-warning">HAMASONR</strong>  Tu tienda de confianza!
+              </h4>
+              <form th:object="${login}" method= "POST" th:action="@{/loginPost}" class="form-inline d-flex justify-content-center h-25">
+                <input th:field="*{hamaUsername}" class="form-control  form-control mb-3"
+                  placeholder="Nombre de Usuario">
+                <input th:field="*{hamaPassword}" class="form-control form-control mb-3 mx-1"
+                  type="password" placeholder="Contraseña">
+                  <!--a th:href="@{loginPost}">Prueba </a-->
+                <button type="submit" class="btn btn-primary w-100 btn-round mb-3 btn-rised bg-naranjaboton">A COMPRAR</button>
+              </form>
+              <p class="text-muted m-3">
+                Has tus compras y consigue descuentos <strong class="">todos</strong>  los días!!
+                <a href="#">Crear tu usuario</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block block-bordered text-center">
+        <div class="container-fluid">
+          <blockquote class="pull-quote text-light mt-3">
+            <p>
+              “Aquí tus sueños se hacen realidad”
+            </p>
+            <cite>Hamasonr Family</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <div th:replace="~{standarLayouts/script :: script1}">
+           AQUI DEBERIA DE ALISR EL script
+   </div>
+
+
+  </body>
+
+</html>

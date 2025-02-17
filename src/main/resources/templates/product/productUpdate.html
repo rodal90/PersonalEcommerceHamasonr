@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+  <!-- Se incluye el head a través de Thymeleaf -->
+  <div th:replace="~{standarLayouts/head :: head1}">
+    AQUI DEBERÍAMOS USAR EL HEAD
+  </div>
+
+  <style>
+    /* Reiniciamos márgenes y padding para eliminar el espacio blanco */
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .bg-fondo { background-color: #003366; }
+    .bg-naranjaboton { background-color: #FF6347; }
+    .bg-naranjafondo { background-color: #FF8C00; }
+    .bg-naranjabrillo { background-color: #FF7F50; }
+    .bg-clesteclaro { background-color: #87CEFA; }
+    .bg-aceroazulado { background-color: #4682B4; }
+    .bg-azulcadete { background-color: #5F9EA0; }
+    .bg-azulpetroleo { background-color: #1F3A3D; }
+    .bg-grisclarito { background-color: #F2F2F2; }
+    #btazul, #btceleste, #btnaranja { color: white; }
+
+    /* Fijamos el navbar en la parte superior */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+  </style>
+
+  <body>
+    <!-- Navbar siempre en la parte superior -->
+    <nav th:replace="~{standarLayouts/navbar :: navbar2('products')}">
+      AQUI DEBERÍA SALIR EL NAVBAR
+    </nav>
+
+    <!-- Contenedor general del contenido -->
+    <div class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+      <!-- Sección que envuelve todo el contenido -->
+      <section class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+        <div class="container" style="padding-top: 100px;">
+          <!-- El padding-top en el contenedor evita que el contenido quede oculto tras el navbar -->
+
+          <!-- Título centrado -->
+          <div class="row text-center justify-content-center">
+            <div class="col-12 col-md-8 col-lg-7">
+              <h3 class="fw-bold display-4 text-white">Actualizar Producto</h3>
+            </div>
+          </div>
+
+          <!-- Formulario del producto -->
+          <div class="row pt-4">
+            <div class="col-12">
+              <form th:object="${product}" method="POST" th:action="@{/product/edit}" enctype="multipart/form-data">
+                <!-- Errores de validación -->
+                <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                  <p th:text="#{html.generic.errors.message.title}"></p>
+                  <ul>
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li>
+                  </ul>
+                </div>
+
+                <!-- Campo oculto: id -->
+                <input th:field="*{id}" type="hidden">
+
+                <!-- Nombre -->
+                <div class="row">
+                  <div class="col-12">
+                    <label>Nombre:</label>
+                    <input type="text" class="form-control" placeholder="Nombre" th:field="*{name}">
+                  </div>
+                </div>
+
+                <!-- Descripción -->
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <label>Descripción:</label>
+                    <textarea class="form-control" placeholder="Descripción" th:field="*{description}"></textarea>
+                  </div>
+                </div>
+
+                <!-- Imagen: Vista previa y opción para subir nueva imagen -->
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <label>Imagen:</label>
+                    <div>
+                      <img th:if="${product.imageUrl != null}" th:src="${product.imageUrl}" alt="Imagen del producto" style="max-width: 200px; max-height: 200px;">
+                    </div>
+                    <div>
+                      <label for="imageFile">Seleccionar nueva imagen:</label>
+                      <input type="file" id="imageFile" name="imageFile" class="form-control">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Precio y Stock -->
+                <div class="row mt-3">
+                  <div class="col-12 col-md-6">
+                    <label>Precio:</label>
+                    <input type="text" class="form-control" placeholder="Precio" th:field="*{price}">
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label>Stock:</label>
+                    <input type="text" class="form-control" placeholder="Stock" th:field="*{stock}">
+                  </div>
+                </div>
+
+                <!-- Descuento -->
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <label>Descuento:</label>
+                    <input type="text" class="form-control" placeholder="Descuento" th:field="*{discount}">
+                  </div>
+                </div>
+
+                <!-- Tasa (Rate) -->
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <label>Tasa:</label>
+                    <input type="text" class="form-control" placeholder="Tasa" 
+                           th:field="*{rate}" th:value="${product.rate != null ? product.rate.rateName : ''}">
+                  </div>
+                </div>
+
+                <!-- Botones: Guardar, Reset y Volver -->
+                <div class="row mt-4 mb-5">
+                  <div class="col text-center">
+                    <button type="submit" class="btn bg-clesteclaro btn-lg">Guardar</button>
+                  </div>
+                  <div class="col text-center">
+                    <button type="reset" class="btn bg-azulpetroleo text-white btn-lg">Deshacer</button>
+                  </div>
+                  <div class="col text-center">
+                    <a type="button" th:href="@{/product/list}" class="btn bg-naranjabrillo text-white btn-lg btn-rised">Volver</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <div th:replace="~{standarLayouts/script :: script1}">
+      AQUI DEBERÍA CARGAR EL script
+    </div>
+
+    <!-- Footer -->
+    <div th:replace="~{standarLayouts/sectionFooter :: sectionFooter1}">
+      AQUI DEBERÍA SALIR EL footer
+    </div>
+  </body>
+</html>

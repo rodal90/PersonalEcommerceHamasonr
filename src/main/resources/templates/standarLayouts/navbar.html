@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3,org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/layout"
+	xmlns:sec="http://www.thymeLeaf.org/extras/spring-security">
+
+<!--th:fragment="navbar1 //es la forma de convertir esta parte de código en fragmento reutilizable con thymeleaf-->
+
+<style>
+
+.bg-primary {
+  background-color: #003366 !important;
+}
+
+.text-white {
+  color: white !important;
+}
+
+.bg-dark {
+  background-color: #343a40 !important; /* Puedes cambiar esto a un color oscuro que prefieras */
+}
+
+.text-success {
+  color: #28a745 !important; /* Aquí defines el color del texto cuando no está seleccionado */
+}
+
+.bg-fondo {
+	background-color: #003366; /* Azul oscuro */
+}
+
+.bg-grisclarito {
+	background-color: #F2F2F2;
+}
+
+</style>
+
+<nav th:fragment="navbar2(currentPage)"
+	class="navbar navbar-expand-lg navbar-dark border border-dark bg-fondo">
+	<div class="container">
+		<a class="navbar-brand" th:href="@{/homeGet}"> <img
+			th:src="@{img/loginlogo.png}" alt="logoHama" style="width: 75px;">
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarTogglerDemo03"
+			aria-controls="navbarTogglerDemo03" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+			<ul class="navbar-nav ms-auto me-sm-2 mt-2 mt-lg-0">
+    <li class="nav-item">
+        <a th:if="${currentPage == 'home'}" th:href="@{/providerListGet}" class="nav-link">Proveedores</a>
+        <a th:if="${currentPage == 'providers'}" th:href="@{/homeGet}" class="nav-link text-white">Tienda</a>
+
+    </li>
+    
+    <li class="nav-item">
+       <a th:if="${currentPage == 'home'}" class="nav-link" th:href="@{/product/list}">Productos</a>
+
+        <a th:if="${currentPage == 'products'}" th:href="@{/homeGet}" class="nav-link">Tienda</a>
+    </li>
+    
+    <li class="nav-item">
+        <a th:if="${currentPage == 'home'}" class="nav-link" th:href="@{/customerListGet}">Clientes</a>
+        <a th:if="${currentPage == 'customers'}" th:href="@{/homeGet}" class="nav-link">Tienda</a>
+    </li>
+    
+    <li class="nav-item">
+        <a th:if="${currentPage == 'home'}" class="nav-link" th:href="@{/userListGet}">Usuarios</a>
+        <a th:if="${currentPage == 'users'}" th:href="@{/homeGet}" class="nav-link">Tienda</a>
+    </li>
+
+ <li class="nav-item dropdown bg-fondo text-white">
+                <a class="nav-link p-1 m-0 dropdown-togle" id="comboLanguage" href="#" role="button"
+                   data-bs-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
+                   
+                    <span th:text="#{lang.change}"></span>
+                     <img th:src="@{/img/world.png}" height="40">
+                        <i class="fa fa-angle-down"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg-end bg-light btn btn-outline-success p-0 m-0"
+                       style="text-decoration:none; margin-top: 0px; margin-bottom: 0px;"
+                       aria-labelledby="comboLanguage">
+                       <!--classappendbuscar para que sirve, con el elvis se hace dos casos para poder agregarle colores y estetica diferente  -->
+                       <!--la condicion es el locale que thymeleaf reconoce y al reconocer el idioma cambia el color en base a si el idioma esta seleccionado o no  -->
+                       <!--el href: donde le queremos enviar cuando se produzca un cambio de idioma, y luego lo estético -->
+                    <a th:each="languageTag : ${languageTagStringList}" class="dropdown-item" 
+                       th:classappend="${#locale.toString()} == ${languageTag} ? 'bg-grisclarito text-dark' : 'bg-fondo text-white'"
+                       th:href="${requestURI} + '?lang=' + ${languageTag}" style="text-decoration:none; margin-top: 0px; margin-bottom: 0px;">
+                       <img th:src="@{'/img/' + ${languageTag} + '.svg'}" style="width:30px; margin-top: 0px; margin-bottom: 0px;">
+                   </a>
+                </div>
+            </li>        
+
+    <li class="nav-item dropdown">
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img class="rounded-circle u-box-shadow-sm me-2" width="25" height="25"
+                th:src="@{img/lion.png}" alt="Htmlstream"
+                th:text="${username} + ' '"><i class="fa fa-angle-down">
+                
+         
+                </i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" th:href="@{/logoutGet}">Sign Out</a>
+            <a class="navbar-brand" href="masterfull.html">
+            </a>         
+        </div>
+  
+    </li>
+    <a><img th:src="@{img/carrito1.png}" alt="carrito" style="width: 40px;"></a>
+</ul>
+			
+
+		</div>
+	</div>
+</nav>
+
+</html>

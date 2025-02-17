@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<div th:replace="~{standarLayouts/head :: head1}">AQUI DEBERIA
+	SALIR EL head</div>
+
+<style>
+.bg-fondo {
+	background-color: #003366; /* Azul oscuro */
+}
+
+.bg-naranjaboton {
+	background-color: #FF6347;
+}
+
+.bg-naranjafondo {
+	background-color: #FF8C00;
+}
+
+.bg-naranjabrillo {
+	background-color: #FF7F50;
+}
+
+.bg-clesteclaro {
+	background-color: #87CEFA;
+}
+
+.bg-aceroazulado {
+	background-color: #4682B4;
+}
+
+.bg-azulcadete {
+	background-color: #5F9EA0;
+}
+
+.bg-azulpetroleo {
+	background-color: #1F3A3D;
+}
+
+.bg-grisclarito {
+	background-color: #F2F2F2;
+}
+
+#btazul {
+	color: white;
+}
+
+#btceleste {
+	color: white;
+}
+
+#btnaranja {
+	color: white;
+}
+</style>
+
+<body>
+
+	<nav th:replace="~{standarLayouts/navbar :: navbar2('customers')}">AQUI
+		DEBERIA DE Salir el navbar</nav>
+
+	<div class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+		<section
+			class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+			<div class="container">
+			
+				<div class="row justify-content-center mb-4">
+					<div class="col-12 col-md-8 text-center">
+						<h3 class="fw-bold display-4 text-white">Cliente</h3>
+						<!-- th:text = "#{html.customerView.title}" -->
+					</div>
+				</div>
+
+			
+				<div class="row">
+					<div class="col-12 col-md-10 col-lg-8 mx-auto">
+						<div th:object="${customer}">
+
+						
+							<div class="row g-3">
+								
+								<div class="col-3">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Id</span>
+										<input readonly th:value="${customer.id}" type="text"
+											class="form-control">
+									</div>
+								</div>
+								
+								<div class="col-9">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">
+											Nombre Completo:<!-- th:text="#{html.providerX.input.text.name}" -->
+										</span> <input readonly th:value="${customer.fullname}"
+											type="text" class="form-control" placeholder="Nombre"
+											th:placeholder="#{html.customerX.input.placeholder.fullname}"
+											th:title="#{html.customerX.input.title.fullname}">
+									</div>
+								</div>
+							</div>
+
+							
+							<div class="row g-3">
+								<!-- Campo CIF -->
+								<div class="col-md-6">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Número de Teléfono:
+										</span>
+										<!-- th:text="#{html.providerX.input.text.cif}" -->
+										<input readonly th:value="${customer.phoneNumber}" type="text"
+											class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.phoneNumber}"
+											th:title="#{html.providerX.input.title.phoneNumber}">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">
+											Email:</span>
+										<!--   th:text="#{html.providerX.input.text.phone}" -->
+										<input readonly th:value="${customer.email}"
+											type="text" class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.email}"
+											th:title="#{html.providerX.input.title.email}">
+									</div>
+								</div>
+							</div>
+
+							<div class="row g-3 mt-4">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">
+											Dirección: </span>
+										<!-- th:text="#{html.providerX.input.text.email}"-->
+										<input readonly th:value="${customer.address}"
+											type="text" class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.address}"
+											th:title="#{html.providerX.input.title.address}">
+									</div>
+								</div>
+							</div>
+
+							<div class="row g-3">
+								<div class="col-12">
+									<div class="input-group mb-2 text-light">
+										<span class="input-group-text bg-azulcadete text-light">Número de Tarjeta:
+										</span>
+										<!--  th:text="#{html.providerX.input.text.direccion}" -->
+										<input readonly th:value="${customer.cardnumber}"
+											type="text" class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.cardnumber}"
+											th:title="#{html.providerX.input.title.cardnumber}">
+									</div>
+								</div>
+							</div>
+							
+							
+							<div class="row g-3">
+								<div class="col-12">
+									<div class="input-group mb-2 text-light">
+										<span class="input-group-text bg-azulcadete text-light">Fecha de expiración:
+										</span>
+										<!--  th:text="#{html.providerX.input.text.direccion}" -->
+										<input readonly th:value="${customer.expirationdate}"
+											type="text" class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.expirationdate}"
+											th:title="#{html.providerX.input.title.expirationdate}">
+									</div>
+								</div>
+							</div>
+
+							<div class="row g-3 mt-4">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">
+											Ordenes: </span>
+										<!-- th:text="#{html.providerX.input.text.productosAsociados}"-->
+										<ul>
+											<li th:each="customerOrder : ${customer.hamaCustomerOrders}">
+												<div
+													style="border-bottom: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+													<strong>Estado:</strong> <span
+														th:text="${customerOrder.orderStatus}"></span><br> <strong>Fecha
+														de Creación:</strong> <span
+														th:text="${#temporals.format(customerOrder.creationDate, 'dd-MM-yyyy HH:mm')}"></span>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<!-- Botón Back, ubicado al final y centrado -->
+							<div class="row mt-4">
+								<div class="col text-center">
+									<a type="button" th:href="@{/customerListGet}"
+										class="btn bg-naranjabrillo btn-round mb-3 btn-rised text-light">
+										Volver </a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	
+	<div th:replace="~{standarLayouts/script :: script1}">AQUI
+		DEBERIA DE ALISR EL script</div>
+	
+	<div th:replace="~{standarLayouts/sectionFooter :: sectionFooter1}">
+			AQUI DEBERIA SALIR EL footer</div>
+
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+
+<div th:replace="~{standardLayouts/head :: head1}">
+	MUST SHOW FRAGMENT HEAD
+</div>
+
+  <body>
+  
+  	<div th:replace="~{standardLayouts/navbar :: navbar1}">
+		MUST SHOW FRAGMENT NAVBAR
+	</div>
+	
+    <section id="prices" class="pt-2 pb-2 bg-dark text-white">
+      <div class="container">
+        <div class="row w-100">
+          <div class="col-lg-12 col-md-12 col-12">
+            <h3 class="display-5 mb-2 text-white" th:text="#{html.productList.title}">
+            </h3>
+            <p class="mb-2" th:text="#{html.productList.subtitle}"></p>
+            <!-- 
+            <p class="mb-5" th:text="${productList}"></p>
+             -->
+            <div class="mb-1">
+            	<a th:text="#{html.generic.table.button.add}"
+            		th:href="@{/product/addGet}"
+            		class="btn btn-primary" role="button">
+            	</a>
+            </div>
+             
+            <div class="table-responsive bg-light">
+              <table class="table table-hover text-start text-dark">
+                <thead class="">
+                  <tr class="bgd-gradient-blue  ">
+                    <th></th>
+                    <th th:text="#{html.productList.table.head.id}"></th>
+                    <th th:text="#{html.productList.table.head.description}"></th>
+                    <th th:text="#{html.productList.table.head.valuation}"></th>
+                    <th th:text="#{html.productList.table.head.familyProduct}"></th>
+                    <th th:text="#{html.generic.table.button.view}"></th>
+                    <th th:text="#{html.generic.table.button.update}"></th>
+                    <th th:text="#{html.generic.table.button.delete}"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="product : ${productList}">
+                    <td>
+                    	<img class="rounded-circle u-box-shadow-sm me-2"
+                    		width="40" height="40" alt="No photo"
+                    		th:src="${product.getPictureURL()}">
+                    </td>
+                    <td th:text="${product.getId()}"></td>
+                    <td th:text="${product.getDescription()}"></td>
+                    <td th:text="${product.getValuation()}"></td>
+                    <td th:text="${product.getFamilyProduct().getName()}"></td>
+                    <td>
+                    	<a th:text="#{html.generic.table.button.view}"
+                    		th:href="@{/product/viewGet/} + ${product.getId()}"
+                    		class="btn btn-success" role="button">
+                    	</a>
+                    </td>
+                    <td>
+                    	<a th:text="#{html.generic.table.button.update}"
+                    		th:href="@{/product/updateGet/} + ${product.getId()}"
+                    		class="btn btn-warning" role="button">
+                    	</a>
+                    </td>
+                    <td>
+                    	<a th:text="#{html.generic.table.button.delete}"
+                    		th:href="@{/product/deleteGet/} + ${product.getId()}"
+                    		class="btn btn-danger" role="button">
+                    	</a>
+                    </td>
+                    
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  	<div th:replace="~{standardLayouts/cards :: cards1}">
+		MUST SHOW FRAGMENT CARDS
+	</div>
+
+  	<div th:replace="~{standardLayouts/footer :: footer1}">
+		MUST SHOW FRAGMENT FOOTER
+	</div>
+
+  	<div th:replace="~{standardLayouts/script :: script1}">
+		MUST SHOW FRAGMENT SCRIPT
+	</div>
+
+  </body>
+
+</html>

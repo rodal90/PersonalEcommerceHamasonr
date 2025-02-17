@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="~{standarLayouts/head :: head1}">AQUI DEBERÍAMOS
+	USAR EL HEAD</div>
+
+<style>
+.bg-fondo {
+	background-color: #003366; /* Azul oscuro */
+}
+
+.bg-naranjaboton {
+	background-color: #FF6347;
+}
+
+.bg-naranjafondo {
+	background-color: #FF8C00;
+}
+
+.bg-naranjabrillo {
+	background-color: #FF7F50;
+}
+
+.bg-clesteclaro {
+	background-color: #87CEFA;
+}
+
+.bg-aceroazulado {
+	background-color: #4682B4;
+}
+
+.bg-azulcadete {
+	background-color: #5F9EA0;
+}
+
+.bg-azulpetroleo {
+	background-color: #1F3A3D;
+}
+
+.bg-grisclarito {
+	background-color: #F2F2F2;
+}
+
+#btazul {
+	color: white;
+}
+
+#btceleste {
+	color: white;
+}
+
+#btnaranja {
+	color: white;
+}
+</style>
+
+<body>
+
+	<nav th:replace="~{standarLayouts/navbar :: navbar2('products')}">
+		AQUI DEBERÍA SALIR EL NAVBAR</nav>
+
+	<section id="prices" class="pt-5 pb-5 bg-aceroazulado text-white">
+		<div class="container">
+			<div class="row w-100">
+				<div class="col-lg-12 col-md-12 col-12">
+					<h3 class="display-5 mb-2 text-white">PRODUCTOS</h3>
+					<p class="mb-2">Listado</p>
+					<div>
+						<!-- Cambiado a /product/add -->
+						<a role="button" class="btn bg-naranjafondo mb-2"
+							th:href="@{/product/add}">Agregar Producto</a>
+					</div>
+					<div class="table-responsive bg-light">
+						<table class="table table-hover text-start text-dark">
+							<thead>
+								<tr class="bgd-gradient-blue">
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Descripción</th>
+									<th>Precio</th>
+									<th>Stock</th>
+									<th>Proveedor</th>
+									<th>Ver</th>
+									<th>Actualizar</th>
+									<th>Borrar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="product : ${productList}">
+									<td th:text="${product.id}"></td>
+									<td th:text="${product.name}"></td>
+									<td th:text="${product.description}"></td>
+									<td th:text="${product.price}"></td>
+									<td th:text="${product.stock}"></td>
+									<td
+										th:text="${product.provider != null ? product.provider.providerName : 'Sin Proveedor'}"></td>
+									<td>
+										<!-- Cambiado a /product/view/{id} --> <a role="button"
+										class="btn bg-azulpetroleo" id="btazul"
+										th:href="@{'/product/view/' + ${product.id}}">Ver</a>
+									</td>
+									<td>
+										<!-- Cambiado a /product/edit/{id} --> <a role="button"
+										class="btn bg-azulcadete" id="btceleste"
+										th:href="@{'/product/edit/' + ${product.id}}">Actualizar</a>
+									</td>
+									<td sec:authorize="hasAuthority('MANAGER')"><a
+										role="button" class="btn bg-naranjafondo" id="btnaranja"
+										th:href="@{'/product/delete/' + ${product.id}}"
+										onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">Borrar</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div th:replace="~{standarLayouts/sectionFooter :: sectionFooter1}">
+		AQUI DEBERÍAMOS USAR EL sectionFooter</div>
+
+	<div th:replace="~{standarLayouts/script :: script1}">AQUI
+		DEBERÍA CARGAR EL script</div>
+
+</body>
+</html>

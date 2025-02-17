@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<div th:replace="~{standarLayouts/head :: head1}">AQUI DEBERIA
+	SALIR EL head</div>
+
+<style>
+.bg-fondo {
+	background-color: #003366; /* Azul oscuro */
+}
+
+.bg-naranjaboton {
+	background-color: #FF6347;
+}
+
+.bg-naranjafondo {
+	background-color: #FF8C00;
+}
+
+.bg-naranjabrillo {
+	background-color: #FF7F50;
+}
+
+.bg-clesteclaro {
+	background-color: #87CEFA;
+}
+
+.bg-aceroazulado {
+	background-color: #4682B4;
+}
+
+.bg-azulcadete {
+	background-color: #5F9EA0;
+}
+
+.bg-azulpetroleo {
+	background-color: #1F3A3D;
+}
+
+.bg-grisclarito {
+	background-color: #F2F2F2;
+}
+
+#btazul {
+	color: white;
+}
+
+#btceleste {
+	color: white;
+}
+
+#btnaranja {
+	color: white;
+}
+</style>
+
+<body>
+
+	<nav th:replace="~{standarLayouts/navbar :: navbar2('providers')}">AQUI
+		DEBERIA DE Salir el navbar</nav>
+
+	<div class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+		<section
+			class="pb-5 pt-5 bg-aceroazulado text-light min-vw-100 min-vh-100">
+			<div class="container">
+				<!-- Título centrado -->
+				<div class="row justify-content-center mb-4">
+					<div class="col-12 col-md-8 text-center">
+						<h3 class="fw-bold display-4 text-white">Proveedor</h3>
+						<!-- th:text = "#{html.providerView.title}" -->
+					</div>
+				</div>
+
+				<!-- Formulario del proveedor -->
+				<div class="row">
+					<div class="col-12 col-md-10 col-lg-8 mx-auto">
+						<div th:object="${provider}">
+
+							<!-- Fila 1: ID y Nombre -->
+							<div class="row g-3">
+								<!-- Campo ID (más pequeño) -->
+								<div class="col-3">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Id</span>
+										<input readonly th:value="${provider.id}" type="text"
+											class="form-control">
+									</div>
+								</div>
+								<!-- Campo Nombre (espacio mayor) -->
+								<div class="col-9">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">
+											Nombre <!-- th:text="#{html.providerX.input.text.name}" -->
+										</span> <input readonly th:value="${provider.providerName}"
+											type="text" class="form-control" placeholder="Name"
+											th:placeholder="#{html.providerX.input.placeholder.providerName}"
+											th:title="#{html.providerX.input.title.providerName}">
+									</div>
+								</div>
+							</div>
+
+							<!-- Fila 2: CIF y Teléfono -->
+							<div class="row g-3">
+								<!-- Campo CIF -->
+								<div class="col-md-6">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">Cif
+										</span>
+										<!-- th:text="#{html.providerX.input.text.cif}" -->
+										<input readonly th:value="${provider.providerCif}" type="text"
+											class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.providerCif}"
+											th:title="#{html.providerX.input.title.providerCif}">
+									</div>
+								</div>
+								<!-- Campo Teléfono -->
+								<div class="col-md-6">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">
+											Teléfono </span>
+										<!--   th:text="#{html.providerX.input.text.phone}" -->
+										<input readonly th:value="${provider.providerPhone}"
+											type="text" class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.providerPhone}"
+											th:title="#{html.providerX.input.title.providerPhone}">
+									</div>
+								</div>
+							</div>
+
+							<!-- Fila 3: Email -->
+							<div class="row g-3 mt-4">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">
+											Correo Electrónico </span>
+										<!-- th:text="#{html.providerX.input.text.email}"-->
+										<input readonly th:value="${provider.providerEmail}"
+											type="text" class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.providerEmail}"
+											th:title="#{html.providerX.input.title.providerEmail}">
+									</div>
+								</div>
+							</div>
+
+							<!-- Fila 4: Dirección -->
+							<div class="row g-3">
+								<div class="col-12">
+									<div class="input-group mb-2 text-light">
+										<span class="input-group-text bg-azulcadete text-light">Dirección
+										</span>
+										<!--  th:text="#{html.providerX.input.text.direccion}" -->
+										<input readonly th:value="${provider.providerAddress}"
+											type="text" class="form-control"
+											th:placeholder="#{html.providerX.input.placeholder.providerAddress}"
+											th:title="#{html.providerX.input.title.providerAddress}">
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Fila 3: Email -->
+							<div class="row g-3 mt-4">
+								<div class="col-12">
+									<div class="input-group mb-2">
+										<span class="input-group-text bg-azulcadete text-light">
+											Productos Asociados </span>
+										<!-- th:text="#{html.providerX.input.text.productosAsociados}"-->
+										<ul>
+											<li th:each="product:${provider.getProviderProducts()}"
+												th:text="${product.getName()}"></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<!-- Botón Back, ubicado al final y centrado -->
+							<div class="row mt-4">
+								<div class="col text-center">
+									<a type="button" th:href="@{/providerListGet}"
+										class="btn bg-naranjabrillo btn-round mb-3 btn-rised text-light">
+										Volver </a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	
+	<div th:replace="~{standarLayouts/script :: script1}">AQUI
+		DEBERIA DE ALISR EL script</div>
+	
+	
+	<div th:replace="~{standarLayouts/sectionFooter :: sectionFooter1}">
+			AQUI DEBERIA SALIR EL footer</div>
+
+</body>
+
+</html>

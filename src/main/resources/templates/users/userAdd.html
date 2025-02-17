@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3,org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/layout"
+	xmlns:sec="http://www.thymeLeaf.org/extras/spring-security">
+
+<div th:replace="~{standarLayouts/head :: head1}">AQUI DEBERIAMOS
+	USAR EL HEAD</div>
+
+
+<style>
+.bg-fondo {
+	background-color: #003366; /* Azul oscuro */
+}
+
+.bg-naranjaboton {
+	background-color: #FF6347;
+}
+
+.bg-naranjafondo {
+	background-color: #FF8C00;
+}
+
+.bg-naranjabrillo {
+	background-color: #FF7F50;
+}
+
+.bg-clesteclaro {
+	background-color: #87CEFA;
+}
+
+.bg-aceroazulado {
+	background-color: #4682B4;
+}
+
+.bg-azulcadete {
+	background-color: #5F9EA0;
+}
+
+.bg-azulpetroleo {
+	background-color: #1F3A3D;
+}
+
+.link-registrarse {
+	color: blue; /* Cambia el color del texto */
+	text-decoration: underline; /* Subrayado */
+	font-weight: bold; /* Resalta el texto */
+	cursor: pointer; /* Cambia el cursor al pasar */
+}
+
+.link-registrarse:hover {
+	color: darkblue; /* Cambia de color cuando el usuario pasa el mouse */
+}
+</style>
+
+<body class="bg-fondo">
+
+	<section class="pb-5 pt-5 bg-fondo text-light" style="">
+		<div class="container">
+			<div class="row text-center justify-content-center">
+				<div class="col-12 col-md-8 col-lg-7">
+					<h3 class="fw-bold display-4 text-white">Nuevo Usuario</h3>
+
+				</div>
+			</div>
+			<div class="row pt-4">
+				<div class="col-12">
+
+					<form th:object="${user}" method="POST"
+						th:action="@{/user/addPost}">
+						<!-- agrupamos los que van a estar escondidos -->
+
+						<div class="row">
+							<div class="col-12 col-md">
+								<label>Nombre Completo:</label> <input type="text"
+									class="form-control" placeholder="Nombre"
+									th:field="*{fullname}">
+							</div>
+
+							<div class="col-12 col-md mt-4 mt-md-0">
+								<label>Correo Electrónico:</label> <input type="text"
+									class="form-control" placeholder="Correo Electrónico"
+									th:field="*{email}">
+							</div>
+							<div class="col-12 col-md mt-4 mt-md-0">
+								<label>Dirección:</label> <input type="text"
+									class="form-control" placeholder="Dirección"
+									th:field="*{address}">
+							</div>
+							<div>
+								<label>Teléfono:</label> <input type="text" class="form-control"
+									placeholder="Teléfono" th:field="*{phoneNumber}">
+							</div>
+
+							<div>
+								<label>Nombre de Usuario:</label> <input type="text"
+									class="form-control" placeholder="Usuario"
+									th:field="*{username}">
+							</div>
+
+							<div
+								style="border: 1px solid #003366; padding: 15px; background-color: #f0f8ff; border-radius: 5px; margin-top: 20px;">
+								<p style="font-size: 16px; color: #003366; margin-bottom: 15px;">
+									Por favor, antes de continuar. Ingrese al siguiente link para
+									encriptar su contraseña, cópiela y luego péguela en el
+									formulario de creación de usuario. ¡Gracias!.</p>
+								<div style="text-align: center;">
+									<a href="https://bcrypt-generator.com/" target="_blank"
+										style="font-size: 16px; color: #ffffff; background-color: #003366; padding: 10px 15px; text-decoration: none; border-radius: 3px; margin-bottom: 20px;">
+										Ir a Encriptar Contraseña </a>
+								</div>
+							</div>
+
+							<div>
+								<label>Contraseña:</label> <input type="password"
+									class="form-control" placeholder="Contraseña"
+									th:field="*{password}">
+							</div>
+
+						</div>
+
+
+
+						<div class="row mt-4">
+							<div class="col text-center">
+								<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+							</div>
+
+							<div class="col text-center">
+								<button type="reset" class="btn btn-primary btn-lg">Deshacer</button>
+							</div>
+
+							<div class="col text-center">
+								<a type="button" href="userList.html"
+									class="btn btn-primary btn-lg">Volver</a>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<div th:replace="~{standarLayouts/sectionFooter :: sectionFooter1}">
+		AQUI DEBERIAMOS USAR EL sectionFooter</div>
+
+	<div th:replace="~{standarLayouts/script :: script1}">AQUI
+		DEBERIA DE ALISR EL script</div>
+
+
+</body>
+
+</html>

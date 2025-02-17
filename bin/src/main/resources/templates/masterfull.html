@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html
+
+ xmlns="http://www.w3,org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/layout"
+ xmlns:sec="http://www.thymeLeaf.org/extras/spring-security"
+>
+
+  
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Hamasonr</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet"
+      href=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css ">
+    <link rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+
+    <!-- Plugins -->
+  </head>
+  
+  
+   <style>
+  
+   .bg-fondo {
+            background-color:#003366; /* Azul oscuro */
+        }
+        
+   .bg-naranjaboton{
+   
+      background-color: #FF6347;
+        
+   }
+   
+    .bg-naranjafondo{
+   
+      background-color: #FF8C00;
+        
+   }
+   
+    .bg-naranjabrillo{
+   
+      background-color: #FF7F50;
+        
+   }
+   
+    .bg-clesteclaro{
+   
+      background-color:#87CEFA;
+        
+   }
+   
+    .bg-aceroazulado{
+   
+      background-color: #4682B4;
+        
+   }
+   
+   
+    .bg-azulcadete{
+   
+      background-color: #5F9EA0;
+        
+   }
+   
+    .bg-azulpetroleo{
+   
+      background-color:#1F3A3D;
+        
+   }
+
+  </style>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark border border-dark bg-fondo">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img th:src="@{img/loginlogo.png}" alt="logoHama"
+            style="width: 75px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo03"
+          aria-controls="navbarTogglerDemo03" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav ms-auto me-sm-2 mt-2 mt-lg-0">
+            <li class="nav-item active me-3">
+              <a class="nav-link" href="#">Clientes <span
+                  class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#">Proveedores</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#">Productos</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#">Estadística</a>
+            </li>
+            <li class="nav-item me-3">
+              <a class="nav-link" href="#">Ordenes</a>
+            </li>
+            <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">Data
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" th:href="@{/customerListGet}">Customer</a>
+                <a class="dropdown-item" href="#">Contacts</a>
+                <a class="dropdown-item" href="#">Products and Services</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" th:href="@{/dumpDBGet}">Dump DataBase</a>
+              </div>
+            </li>
+              <li class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarDropdown" role="button"
+                data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <img class="rounded-circle u-box-shadow-sm me-2" width="25"
+                  height="25" th:src="@{img/lion.png}"
+                  alt="Htmlstream" th:text="${username} + ' '+' '"><i class="fa fa-angle-down   "></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               
+                <a class="dropdown-item" th:href="@{/logoutGet}">Sign Out</a>
+              </div>
+            </li>
+              <a class="navbar-brand" href="masterfull.html">
+          <img th:src="@{img/carrito.png}" alt="carrito"
+            style="width: 40px;">
+        </a>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+
+    <section class="pt-5 pb-1 mt-0 align-items-center d-flex bg-aceroazulado"
+      style="min-height: 50vh; background-size: cover; background-image: url('@{/img/shopping1.jpg}');">
+      <div class="container-fluid">
+        <div
+          class="row  justify-content-center align-items-center d-flex-row text-center h-100">
+          <div class="col-12 col-md-8  h-50 ">
+            <div
+              class="icon-wrap text-primary d-flex justify-content-center my-3">
+              <button href="#"
+                class="icon d-flex border-0 align-items-center justify-content-center bg-white text-dark  rounded-circle "
+                style="width:70px; height:70px">
+                <i class="fas fa-search fa-lg ml-1"></i>
+              </button>
+            </div>
+            <p class="text-white small text-uppercase mb-1 mt-5"
+              style="letter-spacing: 1em;">Nuestros mejores productos</p>
+            <h1 class="text-white mb-2 mt-2 bg-naranjabrillo">Especializados para Tu Hogar
+            </h1>
+            <p></p>
+            <div class="btn-container-wrapper p-relative d-block  zindex-1">
+              <a class="btn btn-outline-light border-0 btn-lg pr-2 pl-2 pt-3 pb-3  mt-md-5  scroll align-self-center  "
+                href="#section-1">
+                <i class="fa fa-angle-down fa-lg  "></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="section-1" class="pt-2 pb-1">
+     <div class="container my-5 bg-aceroazulado">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h1 class=" text-white mb-4">Nuestros Productos</h1>
+        </div>
+      </div>
+      <div class="row">
+        <!-- Itera sobre la lista de productos inyectada desde el controlador -->
+        <div class="col-md-4 mb-4" th:each="product : ${products}">
+          <div class="card h-100">
+            <!-- Imagen del producto -->
+            <img th:src="@{${product.imageUrl}}" class="card-img-top" 
+                 th:alt="'Imagen de ' + ${product.name}" />
+            <div class="card-body">
+              <!-- Nombre del producto -->
+              <h5 class="card-title" th:text="${product.name}">Nombre del Producto</h5>
+              <!-- Descripción del producto -->
+              <p class="card-text" th:text="${product.description}">
+                Descripción del producto...
+              </p>
+              <!-- Datos adicionales: precio, descuento y stock -->
+              <p class="card-text">
+                <strong>Precio: </strong> 
+                <span th:text="${product.price}">$0.00</span>
+                <br>
+                <strong>Descuento: </strong> 
+                <span th:text="${product.discount}">0%</span>
+                <br>
+                <strong>Stock: </strong> 
+                <span th:text="${product.stock}">0</span>
+              </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <!-- Información de la familia de productos -->
+              <small class="text-muted">
+                Familia: <span th:text="${product.productFamily.name}">Familia</span>
+              </small>
+              <!-- Botón de compra -->
+              <form th:action="@{/cart/add}" method="post" class="mb-0">
+                <!-- Enviar el id del producto -->
+                <input type="hidden" name="productId" th:value="${product.id}" />
+                <button type="submit" class="btn btn-primary btn-sm">Comprar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Fin de iteración de productos -->
+      </div>
+    </div>
+    </section>
+    <section class="">
+      <footer class="pt-4 pb-4  bg-fondo text-light">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-8">
+              <ul class="nav justify-content-center justify-content-md-start">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Volver</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Terminos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Acerca de Nosotros</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-end">
+              © 2025 Hamazonr. Todos los derechos reservados.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"></script>
+
+
+  </body>
+
+</html>
