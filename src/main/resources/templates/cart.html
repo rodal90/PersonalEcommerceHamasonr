@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeLeaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hamasonr - Carrito de Compras</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+  <!-- Plugins -->
+</head>
+
+<!-- Fragmento de head -->
+<div th:replace="~{standarLayouts/head :: head1}">
+  AQUI DEBERIA SALIR EL head
+</div>
+
+<style>
+  .bg-fondo {
+    background-color: #003366; /* Azul oscuro */
+  }
+
+  .bg-naranjaboton {
+    background-color: #FF6347;
+  }
+
+  .bg-naranjafondo {
+    background-color: #FF8C00;
+  }
+
+  .bg-naranjabrillo {
+    background-color: #FF7F50;
+  }
+
+  .bg-clesteclaro {
+    background-color: #87CEFA;
+  }
+
+  .bg-aceroazulado {
+    background-color: #4682B4;
+  }
+
+  .bg-azulcadete {
+    background-color: #5F9EA0;
+  }
+
+  .bg-azulpetroleo {
+    background-color: #1F3A3D;
+  }
+
+  .bg-grisclarito {
+    background-color: #F2F2F2;
+  }
+
+  #buscador {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  #busca1 {
+    color: orange;
+  }
+
+  #input1 {
+    height: 30px;
+    width: 300px;
+    align-items: center;
+  }
+
+  #productFamilybuttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .buttonFamily {
+    border-radius: 5px;
+    color: white;
+    background-color: orange;
+  }
+</style>
+
+<body class="bg-fondo">
+
+  <nav th:replace="~{standarLayouts/navbar :: navbar2('home')}">
+    AQUI DEBERIA DE Salir el navbar
+  </nav>
+
+  <!-- Sección del carrito -->
+  <section class="pt-5 pb-5">
+    <div class="container">
+      <h1 class="text-center text-white mb-4">Carrito de Compras</h1>
+      <!-- Si el carrito está vacío -->
+      <div th:if="${order == null or #lists.isEmpty(order.orderLines)}">
+        <p class="text-center text-white">Tu carrito está vacío.</p>
+      </div>
+      <!-- Si hay orderLines en el carrito -->
+      <div th:if="${order != null and !#lists.isEmpty(order.orderLines)}">
+        <table class="table table-bordered table-hover bg-grisclarito">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Imagen</th>
+              <th>Cantidad</th>
+              <th>Precio Unitario</th>
+              <th>Subtotal</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="orderLine : ${order.orderLines}">
+              <td th:text="${orderLine.product.name}">Nombre del producto</td>
+              <td>
+                <img th:src="@{'/img/' + ${orderLine.product.imageUrl}}"
+                     alt="Imagen"
+                     style="width: 100px; height: auto;" />
+              </td>
+              <td th:text="${orderLine.quantity}">1</td>
+              <td th:text="${orderLine.pricePerUnit}">0.00</td>
+              <td th:text="${#numbers.formatDecimal(orderLine.pricePerUnit * orderLine.quantity, 2, 'POINT')}">0.00</td>
+              <td>
+                <!-- Formulario para eliminar un producto del carrito -->
+                <form th:action="@{/cart/remove}" method="post">
+                  <input type="hidden" name="productId" th:value="${orderLine.product.id}" />
+                  <input type="hidden" name="customerId" th:value="${order.hamaCustomer.id}" />
+                  <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-end">
+          <!-- Botón para proceder al checkout -->
+          <a href="checkout.html" class="btn btn-primary">Proceder al Pago</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pt-4 pb-4 bg-fondo text-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-8">
+          <ul class="nav justify-content-center justify-content-md-start">
+            <li class="nav-item"><a class="nav-link active" href="#">Volver</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Términos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Acerca de Nosotros</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-end">
+          © 2025 Hamazonr. Todos los derechos reservados.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+          crossorigin="anonymous"></script>
+
+</body>
+</html>
